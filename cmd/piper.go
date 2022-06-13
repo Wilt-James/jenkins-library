@@ -194,6 +194,7 @@ func Execute() {
 	rootCmd.AddCommand(ApiKeyValueMapUploadCommand())
 	rootCmd.AddCommand(PythonBuildCommand())
 	rootCmd.AddCommand(AwsS3UploadCommand())
+	rootCmd.AddCommand(AnsSendEventCommand())
 
 	addRootFlags(rootCmd)
 
