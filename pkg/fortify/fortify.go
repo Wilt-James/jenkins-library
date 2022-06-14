@@ -73,7 +73,7 @@ type System interface {
 	DownloadResultFile(endpoint string, projectVersionID int64) ([]byte, error)
 	
 	GetAuthEntityOfProjectVersion(id int64) ([]*models.AuthenticationEntity, error)
-
+	UpdateCollectionAuthEntityOfProjectVersion(id int64, data []*models.AuthenticationEntity) error
 }
 
 // SystemInstance is the specific instance
@@ -399,7 +399,7 @@ func (sys *SystemInstance) GetAuthEntityOfProjectVersion(id int64) ([]*models.Au
 	return result.GetPayload().Data, nil
 }
 
-func (sys *SystemInstance) updateCollectionAuthEntityOfProjectVersion(id int64, data []*models.AuthenticationEntity) error {
+func (sys *SystemInstance) UpdateCollectionAuthEntityOfProjectVersion(id int64, data []*models.AuthenticationEntity) error {
 	params := &auth_entity_of_project_version_controller.UpdateCollectionAuthEntityOfProjectVersionParams{ParentID: id, Data: data}
 	params.WithTimeout(sys.timeout)
 	_, err := sys.client.AuthEntityOfProjectVersionController.UpdateCollectionAuthEntityOfProjectVersion(params, sys)
