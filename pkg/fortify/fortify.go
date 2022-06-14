@@ -385,7 +385,7 @@ func (sys *SystemInstance) ProjectVersionCopyCurrentState(sourceID, targetID int
 	return nil
 }
 
-func (sys *SystemInstance) getAuthEntityOfProjectVersion(id int64) ([]*models.AuthenticationEntity, error) {
+func (sys *SystemInstance) GetAuthEntityOfProjectVersion(id int64) ([]*models.AuthenticationEntity, error) {
 	embed := "roles"
 	params := &auth_entity_of_project_version_controller.ListAuthEntityOfProjectVersionParams{Embed: &embed, ParentID: id}
 	params.WithTimeout(sys.timeout)
@@ -408,7 +408,7 @@ func (sys *SystemInstance) updateCollectionAuthEntityOfProjectVersion(id int64, 
 
 // ProjectVersionCopyPermissions copies the authentication entity of the project version addressed by sourceID to the one of targetID
 func (sys *SystemInstance) ProjectVersionCopyPermissions(sourceID, targetID int64) error {
-	result, err := sys.getAuthEntityOfProjectVersion(sourceID)
+	result, err := sys.GetAuthEntityOfProjectVersion(sourceID)
 	if err != nil {
 		return err
 	}
