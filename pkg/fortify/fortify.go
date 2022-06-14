@@ -415,7 +415,7 @@ func (sys *SystemInstance) ProjectVersionCopyPermissions(sourceID, targetID int6
 	if err != nil {
 		return err
 	}
-	err = sys.updateCollectionAuthEntityOfProjectVersion(targetID, result)
+	err = sys.UpdateCollectionAuthEntityOfProjectVersion(targetID, result)
 	if err != nil {
 		return err
 	}
