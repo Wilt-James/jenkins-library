@@ -75,7 +75,7 @@ type System interface {
 	DownloadResultFile(endpoint string, projectVersionID int64) ([]byte, error)
 
 	GetAuthEntityOfProjectVersion(id int64) ([]*models.AuthenticationEntity, error)
-	GetAuthEntityByName(entityName string) ([]*models.AuthenticationEntity, error)
+	GetAuthEntityByName(entityName string) (*models.AuthenticationEntity, error)
 	UpdateCollectionAuthEntityOfProjectVersion(id int64, data []*models.AuthenticationEntity) error
 }
 
