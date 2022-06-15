@@ -15,7 +15,9 @@ import (
 	ff "github.com/piper-validation/fortify-client-go/fortify"
 	"github.com/piper-validation/fortify-client-go/fortify/artifact_of_project_version_controller"
 	"github.com/piper-validation/fortify-client-go/fortify/attribute_of_project_version_controller"
+	"github.com/piper-validation/fortify-client-go/fortify/auth_entity_controller"
 	"github.com/piper-validation/fortify-client-go/fortify/auth_entity_of_project_version_controller"
+
 	"github.com/piper-validation/fortify-client-go/fortify/file_token_controller"
 	"github.com/piper-validation/fortify-client-go/fortify/filter_set_of_project_version_controller"
 	"github.com/piper-validation/fortify-client-go/fortify/issue_audit_comment_of_issue_controller"
@@ -71,8 +73,9 @@ type System interface {
 	UploadResultFile(endpoint, file string, projectVersionID int64) error
 	DownloadReportFile(endpoint string, reportID int64) ([]byte, error)
 	DownloadResultFile(endpoint string, projectVersionID int64) ([]byte, error)
-	
+
 	GetAuthEntityOfProjectVersion(id int64) ([]*models.AuthenticationEntity, error)
+	GetAuthEntityByName(entityName string) ([]*models.AuthenticationEntity, error)
 	UpdateCollectionAuthEntityOfProjectVersion(id int64, data []*models.AuthenticationEntity) error
 }
 
@@ -387,7 +390,17 @@ func (sys *SystemInstance) ProjectVersionCopyCurrentState(sourceID, targetID int
 	}
 	return nil
 }
+func (sys *SystemInstance) GetAuthEntityByName(entityName string) ([]*models.AuthenticationEntity, error) {
+	embed := "roles"
 
+	params := &auth_entity_controller.ListAuthEntityParams{Embed: &embed, Entityname: &entityName}
+	params.WithTimeout(sys.timeout)
+	result, err := sys.client.AuthEntityController.ListAuthEntity(params, sys)
+	if err != nil {
+		return nil, err
+	}
+	return result.GetPayload().Data, nil
+}
 func (sys *SystemInstance) GetAuthEntityOfProjectVersion(id int64) ([]*models.AuthenticationEntity, error) {
 	embed := "roles"
 	params := &auth_entity_of_project_version_controller.ListAuthEntityOfProjectVersionParams{Embed: &embed, ParentID: id}
