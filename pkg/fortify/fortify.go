@@ -390,7 +390,7 @@ func (sys *SystemInstance) ProjectVersionCopyCurrentState(sourceID, targetID int
 	}
 	return nil
 }
-func (sys *SystemInstance) GetAuthEntityByName(entityName string) ([]*models.AuthenticationEntity, error) {
+func (sys *SystemInstance) GetAuthEntityByName(entityName string) (*models.AuthenticationEntity, error) {
 	embed := "roles"
 
 	params := &auth_entity_controller.ListAuthEntityParams{Embed: &embed, Entityname: &entityName}
@@ -399,7 +399,7 @@ func (sys *SystemInstance) GetAuthEntityByName(entityName string) ([]*models.Aut
 	if err != nil {
 		return nil, err
 	}
-	return result.GetPayload().Data, nil
+	return result.GetPayload().Data[0], nil
 }
 func (sys *SystemInstance) GetAuthEntityOfProjectVersion(id int64) ([]*models.AuthenticationEntity, error) {
 	embed := "roles"
