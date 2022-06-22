@@ -399,7 +399,11 @@ func (sys *SystemInstance) GetAuthEntityByName(entityName string) (*models.Authe
 	if err != nil {
 		return nil, err
 	}
-	return result.GetPayload().Data[0], nil
+	if len(result.GetPayload()) > 0 {
+		return result.GetPayload().Data[0], nil
+	} else {
+		return nil, fmt.Errorf("Could not find auth entity with name %q", entityName)
+	}
 }
 func (sys *SystemInstance) GetAuthEntityOfProjectVersion(id int64) ([]*models.AuthenticationEntity, error) {
 	embed := "roles"
