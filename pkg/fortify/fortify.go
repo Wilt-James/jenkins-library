@@ -399,7 +399,7 @@ func (sys *SystemInstance) GetAuthEntityByName(entityName string) (*models.Authe
 	if err != nil {
 		return nil, err
 	}
-	if len(result.GetPayload()) > 0 {
+	if len(result.GetPayload().Data) > 0 {
 		return result.GetPayload().Data[0], nil
 	} else {
 		return nil, fmt.Errorf("Could not find auth entity with name %q", entityName)
