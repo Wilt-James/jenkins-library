@@ -6,7 +6,7 @@ require (
 	cloud.google.com/go/storage v1.22.1
 	github.com/Jeffail/gabs/v2 v2.6.1
 	github.com/Masterminds/sprig v2.22.0+incompatible
-	github.com/SAP/jenkins-library v1.262.0
+	github.com/SAP/jenkins-library v1.262.1-0.20221219174959-4ae97a8a7350
 	github.com/antchfx/htmlquery v1.2.4
 	github.com/aws/aws-sdk-go-v2/config v1.15.10
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.26.3
